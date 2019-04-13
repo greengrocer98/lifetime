@@ -1,0 +1,35 @@
+\documentclass[border=2pt,12pt]{standalone} 
+\usepackage{pgfplotstable} 
+\pgfplotsset{compat=1.15} 
+\usepackage{booktabs} 
+\usepackage{array} 
+\usepackage{colortbl} 
+\usepackage[russian,english]{babel} 
+\usepackage[utf8x]{inputenc} 
+\usepackage{amssymb, 
+amsfonts, 
+amsmath, 
+amsthm} 
+\usepackage[T2A]{fontenc} 
+\pgfplotsset{width=15cm,height=10cm,compat=newest} 
+\begin{document} 
+\begin{tikzpicture}[ 
+] 
+\begin{axis}[ 
+table/col sep = comma, 
+xlabel={$x$, мм}, 
+ylabel={$lnU$, y.e}, 
+minor y tick num=2, 
+minor x tick num=2, 
+grid=both, 
+grid style={line width=.3pt, draw=gray!40}, 
+major grid style={line width=.2pt,draw=black!40}, 
+legend pos=north west, 
+] 
+\pgfplotstableread{task1.csv}\exp; 
+\addplot[blue,only marks, mark=*,mark size=1.5pt,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit] table [x expr = \thisrowno{0},y expr = \thisrowno{1}, x error expr = 10, y error expr = 10] {\exp}; 
+\addplot[red,dashed,forget plot, domain=79.5:81.5, samples=2]{-0.6146*x + 50.402}; 
+% \legend{$f=U(x)$,$aa$} 
+\end{axis} 
+\end{tikzpicture} 
+\end{document}
